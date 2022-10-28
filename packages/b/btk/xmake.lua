@@ -1,10 +1,18 @@
 package("btk")
-    set_homepage("https://btk-project.github.io/")
-    set_description("GUI Tookit based on SDL and nanovg")
+    set_description("The btk package")
 
-    add_urls("https://github.com/BusyStudent/Btk.git")
+    add_urls("https://github.com/BusyStudent/Btk-ng/tree/stable")
+    add_versions("0.1", "0f490d124753f63f42d28a8fe08f48a59ce56191")
 
     on_install(function (package)
-        import("package.tools.xmake").install(package)
+        local configs = {}
+        if package:config("shared") then
+            configs.kind = "shared"
+        end
+        import("package.tools.xmake").install(package, configs)
     end)
-    
+
+    on_test(function (package)
+        -- TODO check includes and interfaces
+        -- assert(package:has_cfuncs("foo", {includes = "foo.h"})
+    end)
