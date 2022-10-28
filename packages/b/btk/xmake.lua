@@ -1,8 +1,8 @@
 package("btk")
     set_description("The btk package")
 
-    add_urls("https://github.com/BusyStudent/Btk-ng/tree/stable")
-    add_versions("0.1", "0f490d124753f63f42d28a8fe08f48a59ce56191")
+    add_urls("https://github.com/BusyStudent/Btk-ng.git")
+    -- add_versions("0.1", "0f490d124753f63f42d28a8fe08f48a59ce56191")
 
     on_install(function (package)
         local configs = {}
