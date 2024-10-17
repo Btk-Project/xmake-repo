@@ -1,4 +1,6 @@
 package("ilias")
+    set_kind("library", {headeronly = true})
+    set_homepage("https://github.com/BusyStudent/Ilias")
     set_description("ilias, header-only network library based on cpp20 coroutine")
 
     add_urls("https://github.com/BusyStudent/Ilias.git")
@@ -10,9 +12,6 @@ package("ilias")
 
     on_install(function (package)
         local configs = {}
-        if package:config("shared") then
-            configs.kind = "shared"
-        end
         import("package.tools.xmake").install(package, configs)
     end)
 
