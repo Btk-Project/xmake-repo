@@ -8,6 +8,7 @@ package("gobject-introspection")
         return format("%d.%d/gobject-introspection-%s", version:major(), version:minor(), version)
     end})
     add_versions("1.70.0", "902b4906e3102d17aa2fcb6dad1c19971c70f2a82a159ddc4a94df73a3cafc4a")
+    add_versions("1.80.1", "a1df7c424e15bda1ab639c00e9051b9adf5cea1a9e512f8a603b53cd199bc6d8")
     add_versions("1.82.0", "0f5a4c1908424bf26bc41e9361168c363685080fbdb87a196c891c8401ca2f09")
 
     add_configs("shared", {description = "Build shared library.", default = true, type = "boolean", readonly = true})
