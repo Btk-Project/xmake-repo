@@ -3,8 +3,8 @@ package("ilias")
     set_homepage("https://github.com/BusyStudent/Ilias")
     set_description("ilias, header-only network library based on cpp20 coroutine")
 
-    add_urls("https://github.com/BusyStudent/Ilias.git")
-    -- add_versions("0.1", "0f490d124753f63f42d28a8fe08f48a59ce56191")
+    add_urls("https://github.com/BusyStudent/Ilias/archive/refs/tags/v$(version).tar.gz")
+    add_versions("0.1.0", "9f5cc13a6ef7037a4eac02d90ed1ffcbd9af02dabf5b84a4eda8da8ec14479fa")
 
     if is_host("windows") and not is_plat("cross") then
         add_syslinks("Ws2_32")
