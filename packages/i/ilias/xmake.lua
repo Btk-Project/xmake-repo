@@ -12,7 +12,7 @@ package("ilias")
     add_versions("github:0.2.1", "dcc822434b1028e468e067645e5f38dc4966faa8454a6925f74fbe2bba94d809")
 
     -- The dev versions
-    add_versions("git:dev", "master")
+    add_versions("git:dev", "main")
 
     if is_host("windows") and not is_plat("cross") then
         add_syslinks("Ws2_32")
