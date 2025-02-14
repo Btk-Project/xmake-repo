@@ -7,6 +7,9 @@ package("neko-proto")
     add_versions("git:0.2.1", "f104cbbaf3cb91411a7b8dfa732cae465a92e58f1cc048ae1892b99f6499046a")
     add_versions("github:0.2.1", "072e07a9a74f2067b5c1251ce2f02ffc931df79f")
 
+    add_versions("git:0.2.2", "a27502291f2fbef162d291ebbd22a16282486965afb5005c0e65ffea9c3d7b02")
+    add_versions("github:0.2.2", "b18d45fc1d3b5b8f0a03b0b677daa8afb99c425d")
+
     -- add_versions("0.1", "0f490d124753f63f42d28a8fe08f48a59ce56191")
     
     local configsOption = {
