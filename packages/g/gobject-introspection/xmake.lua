@@ -18,7 +18,7 @@ package("gobject-introspection")
     end
 
     add_deps("meson", "ninja", "pkg-config", "python 3.x", "flex", "bison")
-    add_deps("glib")
+    add_deps("glib", {configs = {shared = true}})
     add_includedirs("include/gobject-introspection-1.0")
     on_install("macosx", "linux", function (package)
         import("package.tools.meson").install(package)
