@@ -20,7 +20,8 @@ package("neko-proto-tools")
         enable_fmt             = {description = "Enable fmt support for logging.", default = false, type = "boolean", deps = {"fmt"}},
         enable_spdlog          = {description = "Enable spdlog support for logging.", default = false, type = "boolean", deps = {"spdlog"}},
         enable_rapidxml        = {description = "Enable rapidxml support for xml serializer support.", default = true, type = "boolean", deps = {"rapidxml"}},
-        enable_jsonrpc         = {description = "Enable jsonrpc module.", default = true, type = "boolean", deps = {"ilias"}, version = "0.2.3"}
+        enable_jsonrpc         = {description = "Enable jsonrpc module.", default = true, type = "boolean", deps = {"ilias"}},
+        enable_protocol        = {description = "Enable protocol support.", default = true, type = "boolean", deps = {}}
     }
 
     for k, info in pairs(configsOption) do
