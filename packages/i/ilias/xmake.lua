@@ -1,5 +1,4 @@
 package("ilias")
-    set_kind("library", {headeronly = true})
     set_homepage("https://github.com/BusyStudent/Ilias")
     set_description("ilias, header-only network library based on cpp20 coroutine")
 
@@ -16,12 +15,37 @@ package("ilias")
     -- The dev versions
     add_versions("git:dev", "main")
 
+    -- The system deps
     if is_host("windows") and not is_plat("cross") then
         add_syslinks("Ws2_32")
     end
 
+    -- The configure
+    local configsOption = {
+        fmt             = {description = "Use fmt replace std::format", default = false, type = "boolean", deps = {"fmt"}},
+        log             = {description = "Enable bultin debug log", default = false, type = "boolean", deps = {}},
+        spdlog          = {description = "Use spdlog to log", default = false, type = "boolean", deps = {"spdlog"}},
+        fiber           = {description = "Enable stackful coroutine support", default = false, type = "boolean", deps = {}},
+        io_uring        = {description = "Use io_uring as platform context", default = false, type = "boolean", deps = {"io_uring"}}
+    }
+
+    for k, info in pairs(configsOption) do
+        add_configs(k, {description = info.description, default = info.default, type = info.type})
+    end
+
+    on_load(function (package)
+        for k, v in pairs(configsOption) do
+            if package:config(k) then
+                package:add("deps", v.deps)
+            end
+        end
+    end)
+
     on_install(function (package)
         local configs = {}
+        for k, v in pairs(configsOption) do
+            table.insert(configs, "--" .. k .. "=" .. (package:config(k) and "true" or "false"))
+        end
         import("package.tools.xmake").install(package, configs)
     end)
 
