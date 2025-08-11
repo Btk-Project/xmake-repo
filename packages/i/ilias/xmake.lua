@@ -1,6 +1,7 @@
 package("ilias")
     set_homepage("https://github.com/BusyStudent/Ilias")
-    set_description("ilias, header-only network library based on cpp20 coroutine")
+    set_description("ilias, network library based on cpp20 coroutine")
+    set_license("MIT")
 
     add_urls("https://github.com/BusyStudent/Ilias.git", {alias = "git"})
     add_urls("https://github.com/BusyStudent/Ilias/archive/refs/tags/v$(version).tar.gz", {alias = "github"})
@@ -29,6 +30,7 @@ package("ilias")
         io_uring        = {description = "Use io_uring as platform context", default = false, type = "boolean", deps = {"io_uring"}},
         cpp20           = {description = "Enable polyfills for std::expected in cpp20", default = false, type = "boolean", deps = {"zeus_expected"}}
     }
+    add_configs("shared", {description = "always use shared library", default = true, type = "boolean", readonly = true})
 
     for k, info in pairs(configsOption) do
         add_configs(k, {description = info.description, default = info.default, type = info.type})
