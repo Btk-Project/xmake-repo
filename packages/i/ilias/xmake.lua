@@ -12,6 +12,7 @@ package("ilias")
     add_versions("github:0.2.1", "dcc822434b1028e468e067645e5f38dc4966faa8454a6925f74fbe2bba94d809")
     add_versions("github:0.2.2", "91f9f8eb44238dab3186157772d375c2e3b77f1742c149848f511b92e64d5ad2")
     add_versions("github:0.2.3", "4746a9b929fa2c3554b3e52108c7ebf6bba45eb50e70bec7192ad34497046528")
+    add_versions("github:0.3.0", "8b1c6cde8b280d3d17bea358a513938e9c4fbdab8c0baeee0a6fb49820151797")
 
     -- The dev versions
     add_versions("git:dev", "main")
