@@ -26,7 +26,7 @@ package("ilias")
         log             = {description = "Enable bultin debug log", default = false, type = "boolean", deps = {}},
         spdlog          = {description = "Use spdlog to log", default = false, type = "boolean", deps = {"spdlog"}},
         fiber           = {description = "Enable stackful coroutine support", default = false, type = "boolean", deps = {}},
-        io_uring        = {description = "Use io_uring as platform context", default = false, type = "boolean", deps = {"io_uring"}}
+        io_uring        = {description = "Use io_uring as platform context", default = false, type = "boolean", deps = {"io_uring"}},
         cpp20           = {description = "Enable polyfills for std::expected in cpp20", default = false, type = "boolean", deps = {"zeus_expected"}}
     }
 
