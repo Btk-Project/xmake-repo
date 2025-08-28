@@ -18,17 +18,23 @@ package("ilias")
     add_versions("git:dev", "main")
 
     -- The system deps
+    local tls_deps = {}
     if is_host("windows") and not is_plat("cross") then
         add_syslinks("Ws2_32")
+    else
+        -- In windows, use schannel, no-deps, other platform, use openssl3
+        tls_deps = {"openssl3"}
     end
 
     -- The configure
     local configsOption = {
         fmt             = {description = "Use fmt replace std::format", default = false, type = "boolean", deps = {"fmt"}},
         log             = {description = "Enable bultin debug log", default = false, type = "boolean", deps = {}},
+        tls             = {description = "Enable Tls support", default = true, type = "boolean", deps = tls_deps},
         spdlog          = {description = "Use spdlog to log", default = false, type = "boolean", deps = {"spdlog"}},
-        fiber           = {description = "Enable stackful coroutine support", default = false, type = "boolean", deps = {}},
+        fiber           = {description = "Enable stackful coroutine support", default = true, type = "boolean", deps = {}},
         io_uring        = {description = "Use io_uring as platform context", default = false, type = "boolean", deps = {"io_uring"}},
+        openssl         = {description = "Force to use openssl as tls backend", default = false, type = "boolean", deps = {"openssl3"}},
         cpp20           = {description = "Enable polyfills for std::expected in cpp20", default = false, type = "boolean", deps = {"zeus_expected"}}
     }
     add_configs("shared", {description = "always use shared library", default = true, type = "boolean", readonly = true})
