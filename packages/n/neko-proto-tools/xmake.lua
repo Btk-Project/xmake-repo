@@ -10,8 +10,8 @@ package("neko-proto-tools")
     -- add_versions("git:0.2.2", "538a99a9cc95a10343b5d731b6d92362645115c42a047a1d8918c7bbca3b5a01")
     -- add_versions("github:0.2.2", "5c368a7b72deeba4a6ae8aab07e272b79f053640")
 
-    add_versions("git:0.2.5", "7c46939eecd80e156139099a50ec133cfe33e3789f16281d408a4761511df9bf")
-    add_versions("github:0.2.5", "0d18a1a7ec029785e02eeaea55e608df9909b6be")
+    add_versions("git:0.2.5", "fa48c165864f80ca7aa8b98c19713a24b5b08e894890b01b07073ff7f2f50643")
+    add_versions("github:0.2.5", "2f21adc8edfc3ed51e6cccdb9625a85c1d2347a9")
 
     -- The dev versions
     add_versions("github:dev", "main")
