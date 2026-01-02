@@ -15,6 +15,7 @@ package("ilias")
     add_versions("github:0.3.0", "8b1c6cde8b280d3d17bea358a513938e9c4fbdab8c0baeee0a6fb49820151797")
     add_versions("github:0.3.1", "26b82cd80e4c307fc5d2860e2309ed72c2c940050be8b1e17cee54a7d081a6c3")
     add_versions("github:0.3.2", "7e97bdcd4dd649ee004caea62cf0c70fbf2972c2f3208d3b75efea5e4ef74e7c")
+    add_versions("github:0.3.3", "a8bd24d026e299ff94ef0bf5d18ce45eb54313e0a6041043747d9666d0e34880")
 
     -- The dev versions
     add_versions("git:dev", "main")
@@ -37,7 +38,8 @@ package("ilias")
         fiber           = {description = "Enable stackful coroutine support", default = true, type = "boolean", deps = {}},
         io_uring        = {description = "Use io_uring as platform context", default = false, type = "boolean", deps = {"io_uring"}},
         openssl         = {description = "Force to use openssl as tls backend", default = false, type = "boolean", deps = {"openssl3"}},
-        cpp20           = {description = "Enable polyfills for std::expected in cpp20", default = false, type = "boolean", deps = {"zeus_expected"}}
+        cpp20           = {description = "Enable polyfills for std::expected in cpp20", default = false, type = "boolean", deps = {"zeus_expected"}},
+        coro_trace      = {description = "Enable Coroutine async stacktrace", default = false, type = "boolean", deps = {}}
     }
     add_configs("shared", {description = "always use shared library", default = true, type = "boolean", readonly = true})
 
