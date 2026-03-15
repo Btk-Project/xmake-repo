@@ -1,6 +1,6 @@
 package("ilias")
     set_homepage("https://github.com/BusyStudent/Ilias")
-    set_description("ilias, network library based on cpp20 coroutine")
+    set_description("ilias, Modern lightweight async runtime based on cpp20 coroutine")
     set_license("MIT")
 
     add_urls("https://github.com/BusyStudent/Ilias.git", {alias = "git"})
@@ -17,6 +17,7 @@ package("ilias")
     add_versions("github:0.3.2", "7e97bdcd4dd649ee004caea62cf0c70fbf2972c2f3208d3b75efea5e4ef74e7c")
     add_versions("github:0.3.3", "a8bd24d026e299ff94ef0bf5d18ce45eb54313e0a6041043747d9666d0e34880")
     add_versions("github:0.3.4", "d79ae1dc92af43e879543d6b1f1c22957bd3e9663b2257544d98817003266a3f")
+    add_versions("github:0.4.0", "29eb894c4dd2975d78268bb050b499078dd46955ce24bb938504509dff769fc3")
 
     -- The dev versions
     add_versions("git:dev", "main")
@@ -32,20 +33,37 @@ package("ilias")
 
     -- The configure
     local configsOption = {
-        fmt             = {description = "Use fmt replace std::format", default = false, type = "boolean", deps = {"fmt"}},
-        log             = {description = "Enable bultin debug log", default = false, type = "boolean", deps = {}},
-        tls             = {description = "Enable Tls support", default = true, type = "boolean", deps = tls_deps},
-        spdlog          = {description = "Use spdlog to log", default = false, type = "boolean", deps = {"spdlog"}},
-        fiber           = {description = "Enable stackful coroutine support", default = true, type = "boolean", deps = {}},
-        io_uring        = {description = "Use io_uring as platform context", default = false, type = "boolean", deps = {"io_uring"}},
-        openssl         = {description = "Force to use openssl as tls backend", default = false, type = "boolean", deps = {"openssl3"}},
-        cpp20           = {description = "Enable polyfills for std::expected in cpp20", default = false, type = "boolean", deps = {"zeus_expected"}},
-        coro_trace      = {description = "Enable Coroutine async stacktrace", default = false, type = "boolean", deps = {}}
+        fmt        = {description = "Use fmt replace std::format",           default = false, type = "boolean", deps = {"fmt"},            since = "0.1.0"},
+        log        = {description = "Enable builtin debug log",              default = false, type = "boolean", deps = {},                 since = "0.1.0"},
+        tls        = {description = "Enable Tls support",                    default = true,  type = "boolean", deps = tls_deps,           since = "0.1.0"},
+        spdlog     = {description = "Use spdlog to log",                     default = false, type = "boolean", deps = {"spdlog"},         since = "0.2.0"},
+        fiber      = {description = "Enable stackful coroutine support",     default = true,  type = "boolean", deps = {},                 since = "0.3.0"},
+        io_uring   = {description = "Use io_uring as platform context",      default = false, type = "boolean", deps = {"io_uring"},       since = "0.3.0"},
+        openssl    = {description = "Force to use openssl as tls backend",   default = false, type = "boolean", deps = {"openssl3"},       since = "0.3.0"},
+        -- cpp20 dep
+        cpp20      = {description = "Enable polyfills for std::expected",    default = false, type = "boolean", deps = {"zeus_expected"},  since = "0.3.0", removed = "0.4.0"},
+        coro_trace = {description = "Enable Coroutine async stacktrace",     default = false, type = "boolean", deps = {},                 since = "0.3.0"},
+        stdcxx     = {description = "C++ standard version for building",     default = 23,    type = "number",  deps = {},                 since = "0.4.0"}
     }
     add_configs("shared", {description = "always use shared library", default = true, type = "boolean", readonly = true})
 
     for k, info in pairs(configsOption) do
         add_configs(k, {description = info.description, default = info.default, type = info.type})
+    end
+    
+    -- Helper for check the config is supported?
+    local function _is_config_supported(package, cfg)
+        local ver = package:version()
+        if not ver then
+            return not cfg.removed
+        end
+        if cfg.since and ver:lt(cfg.since) then
+            return false
+        end
+        if cfg.removed and ver:ge(cfg.removed) then
+            return false
+        end
+        return true
     end
 
     on_load(function (package)
@@ -59,7 +77,20 @@ package("ilias")
     on_install(function (package)
         local configs = {}
         for k, v in pairs(configsOption) do
-            table.insert(configs, "--" .. k .. "=" .. (package:config(k) and "true" or "false"))
+            if _is_config_supported(package, v) then
+                local val = package:config(k)
+                table.insert(configs, "--" .. k .. "=" .. tostring(val))
+            else
+                if package:config(k) ~= v.default then
+                    if v.removed and package:version() and package:version():ge(v.removed) then
+                        raise("ilias %s no longer supports option '%s' (removed in %s)",
+                            package:version_str(), k, v.removed)
+                    else
+                        raise("ilias %s does not yet support option '%s' (introduced in %s)",
+                            package:version_str(), k, v.since)
+                    end
+                end
+            end
         end
         import("package.tools.xmake").install(package, configs)
     end)
