@@ -33,17 +33,17 @@ package("ilias")
 
     -- The configure
     local configsOption = {
-        fmt        = {description = "Use fmt replace std::format",           default = false, type = "boolean", deps = {"fmt"},            since = "0.1.0"},
-        log        = {description = "Enable builtin debug log",              default = false, type = "boolean", deps = {},                 since = "0.1.0"},
-        tls        = {description = "Enable Tls support",                    default = true,  type = "boolean", deps = tls_deps,           since = "0.1.0"},
-        spdlog     = {description = "Use spdlog to log",                     default = false, type = "boolean", deps = {"spdlog"},         since = "0.2.0"},
-        fiber      = {description = "Enable stackful coroutine support",     default = true,  type = "boolean", deps = {},                 since = "0.3.0"},
-        io_uring   = {description = "Use io_uring as platform context",      default = false, type = "boolean", deps = {"io_uring"},       since = "0.3.0"},
-        openssl    = {description = "Force to use openssl as tls backend",   default = false, type = "boolean", deps = {"openssl3"},       since = "0.3.0"},
+        fmt        = {description = "Use fmt replace std::format",         type = "boolean", default = false, deps = {"fmt"},            since = "0.1.0"},
+        log        = {description = "Enable builtin debug log",            type = "boolean", default = false, deps = {},                 since = "0.1.0"},
+        tls        = {description = "Enable Tls support",                  type = "boolean", default = true,  deps = tls_deps,           since = "0.1.0"},
+        spdlog     = {description = "Use spdlog to log",                   type = "boolean", default = false, deps = {"spdlog"},         since = "0.2.0"},
+        fiber      = {description = "Enable stackful coroutine support",   type = "boolean", default = true,  deps = {},                 since = "0.3.0"},
+        io_uring   = {description = "Use io_uring as platform context",    type = "boolean", default = false, deps = {"io_uring"},       since = "0.3.0"},
+        openssl    = {description = "Force to use openssl as tls backend", type = "boolean", default = false, deps = {"openssl3"},       since = "0.3.0"},
         -- cpp20 dep
-        cpp20      = {description = "Enable polyfills for std::expected",    default = false, type = "boolean", deps = {"zeus_expected"},  since = "0.3.0", removed = "0.4.0"},
-        coro_trace = {description = "Enable Coroutine async stacktrace",     default = false, type = "boolean", deps = {},                 since = "0.3.0"},
-        stdcxx     = {description = "C++ standard version for building",     default = 23,    type = "number",  deps = {},                 since = "0.4.0"}
+        cpp20      = {description = "Enable polyfills for std::expected",  type = "boolean", default = false, deps = {"zeus_expected"},  since = "0.3.0", removed = "0.4.0"},
+        coro_trace = {description = "Enable Coroutine async stacktrace",   type = "boolean", default = false, deps = {},                 since = "0.3.0"},
+        stdcxx     = {description = "C++ standard version for building",   type = "number",  default = 23,    deps = {},                 since = "0.4.0"}
     }
     add_configs("shared", {description = "always use shared library", default = true, type = "boolean", readonly = true})
 

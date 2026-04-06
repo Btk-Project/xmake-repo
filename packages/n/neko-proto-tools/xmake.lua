@@ -17,14 +17,14 @@ package("neko-proto-tools")
     add_versions("github:dev", "main")
     
     local configsOption = {
-        enable_simdjson        = {description = "Enable simdjson support.", default = true, type = "boolean", deps = {"simdjson"}},
-        enable_rapidjson       = {description = "Enable rapidjson for json serializer support.", default = false, type = "boolean", deps = {"rapidjson"}},
-        enable_communication   = {description = "Enable communication module.", default = true, type = "boolean", deps = {"ilias"}},
-        enable_fmt             = {description = "Enable fmt support for logging.", default = false, type = "boolean", deps = {"fmt"}},
-        enable_spdlog          = {description = "Enable spdlog support for logging.", default = false, type = "boolean", deps = {"spdlog"}},
-        enable_rapidxml        = {description = "Enable rapidxml support for xml serializer support.", default = true, type = "boolean", deps = {"rapidxml"}},
-        enable_jsonrpc         = {description = "Enable jsonrpc module.", default = true, type = "boolean", deps = {"ilias"}},
-        enable_protocol        = {description = "Enable protocol support.", default = true, type = "boolean", deps = {}}
+        enable_simdjson      = {description = "Enable simdjson support.",                            type = "boolean", default = true,  deps = {"simdjson"}},
+        enable_rapidjson     = {description = "Enable rapidjson for json serializer support.",       type = "boolean", default = false, deps = {"rapidjson"}},
+        enable_communication = {description = "Enable communication module.",                        type = "boolean", default = true,  deps = {"ilias"}},
+        enable_fmt           = {description = "Enable fmt support for logging.",                     type = "boolean", default = false, deps = {"fmt"}},
+        enable_spdlog        = {description = "Enable spdlog support for logging.",                  type = "boolean", default = false, deps = {"spdlog"}},
+        enable_rapidxml      = {description = "Enable rapidxml support for xml serializer support.", type = "boolean", default = true,  deps = {"rapidxml"}},
+        enable_jsonrpc       = {description = "Enable jsonrpc module.",                              type = "boolean", default = true,  deps = {"ilias"}},
+        enable_protocol      = {description = "Enable protocol support.",                            type = "boolean", default = true,  deps = {}}
     }
 
     for k, info in pairs(configsOption) do
