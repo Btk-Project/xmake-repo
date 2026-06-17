@@ -23,15 +23,15 @@ package("neko-proto-tools")
         enable_communication = {description = "Enable communication module.",                        type = "boolean", default = true,  deps = {"ilias"}},
         enable_fmt           = {description = "Enable fmt support for logging.",                     type = "boolean", default = false, deps = {"fmt"}},
         enable_spdlog        = {description = "Enable spdlog support for logging.",                  type = "boolean", default = false, deps = {"spdlog"}},
+        enable_jsonrpc       = {description = "Enable jsonrpc module.",                              type = "boolean", default = true,  deps = {"ilias"}},
+        enable_protocol      = {description = "Enable protocol support.",                            type = "boolean", default = true,  deps = {}},
 
         -- <= 0.2.5 有效；0.2.6+ / dev 无效
         enable_rapidxml      = {description = "Enable rapidxml support for xml serializer support.", type = "boolean", default = true,  deps = {"rapidxml"}, maxver = "0.2.5"},
 
         -- >= 0.3.0 有效；dev 也有效
         enable_pugixml       = {description = "Enable pugixml support for xml serializer support.",  type = "boolean", default = false, deps = {"pugixml"},  minver = "0.3.0"},
-
-        enable_jsonrpc       = {description = "Enable jsonrpc module.",                              type = "boolean", default = true,  deps = {"ilias"}},
-        enable_protocol      = {description = "Enable protocol support.",                            type = "boolean", default = true,  deps = {}}
+        stdcxx               = {description = "C++ standard version for building.", type = "number", default = 23, values = {20, 23, 26}, minver = "0.3.0"}
     }
 
     local function is_devver(package)
@@ -72,12 +72,10 @@ package("neko-proto-tools")
         local available, reason = config_available(package, name, info)
 
         if not available then
-            -- 对带 minver/maxver 的选项，我们不在 add_configs 里设置 default。
-            -- 因此 raw ~= nil 通常表示用户显式传入了这个配置。
             if opt.warn and raw ~= nil then
-                wprint("package(neko-proto-tools): config." .. name ..
-                       " is ignored, because it " .. reason ..
-                       " in version " .. tostring(package:version_str()))
+                print("warning: package(neko-proto-tools): config." .. name ..
+                    " is ignored, because it " .. reason ..
+                    " in version " .. tostring(package:version_str()))
             end
             return nil, false
         end
@@ -85,6 +83,7 @@ package("neko-proto-tools")
         if raw == nil then
             return info.default, true
         end
+
         return raw, true
     end
 
@@ -92,6 +91,7 @@ package("neko-proto-tools")
         local conf = {
             description = info.description,
             type = info.type
+            values = info.values
         }
 
         -- 有版本生命周期的配置不要直接设置 default。
