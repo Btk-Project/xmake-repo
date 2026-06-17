@@ -90,7 +90,7 @@ package("neko-proto-tools")
     for name, info in pairs(configsOption) do
         local conf = {
             description = info.description,
-            type = info.type
+            type = info.type,
             values = info.values
         }
 
