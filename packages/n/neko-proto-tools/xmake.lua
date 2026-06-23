@@ -125,10 +125,17 @@ package("neko-proto-tools")
         -- 如果上游 xmake.lua 支持 kind 配置，传这种形式更稳
         table.insert(configs, "--kind=" .. (package:config("shared") and "shared" or "static"))
 
+        local function config_to_arg(value, info)
+            if info.type == "boolean" then
+                return tostring(value and true or false)
+            end
+            return tostring(value)
+        end
+
         for name, info in pairs(configsOption) do
             local value, available = config_value(package, name, info)
             if available then
-                table.insert(configs, "--" .. name .. "=" .. tostring(value and true or false))
+                table.insert(configs, "--" .. name .. "=" .. config_to_arg(value, info))
             end
         end
 
