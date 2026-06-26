@@ -7,12 +7,14 @@ package("neko-proto-tools")
 
     -- tarball 对应 sha256
     add_versions("github:0.2.5", "fa48c165864f80ca7aa8b98c19713a24b5b08e894890b01b07073ff7f2f50643")
+    add_versions("github:0.3.0", "95212db7f7ca82e589be7f8b5700791377044fd731a9da40c50707e819d7aac7")
 
     -- git 对应 commit
     add_versions("git:0.2.5", "2f21adc8edfc3ed51e6cccdb9625a85c1d2347a9")
+    add_versions("git:0.3.0", "95b1ec1da2c0741460cbf12ae9199fef79009663")
 
     -- 测试版本
-    add_versions("git:0.3.0", "bea18bb8a5bbe2936170a62e3bae1acc98e6e73c")
+    -- add_versions("git:0.3.0", "bea18bb8a5bbe2936170a62e3bae1acc98e6e73c")
 
     -- dev 视为 >= 所有版本号
     add_versions("git:dev", "main")
