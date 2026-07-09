@@ -8,10 +8,12 @@ package("neko-proto-tools")
     -- tarball 对应 sha256
     add_versions("github:0.2.5", "fa48c165864f80ca7aa8b98c19713a24b5b08e894890b01b07073ff7f2f50643")
     add_versions("github:0.3.0", "95212db7f7ca82e589be7f8b5700791377044fd731a9da40c50707e819d7aac7")
+    add_versions("github:0.3.1", "41dea10b14b8d5741ed5dbaaf88fc342487c6af0149069d7e23733782f8db821")
 
     -- git 对应 commit
     add_versions("git:0.2.5", "2f21adc8edfc3ed51e6cccdb9625a85c1d2347a9")
     add_versions("git:0.3.0", "95b1ec1da2c0741460cbf12ae9199fef79009663")
+    add_versions("git:0.3.1", "c062cadcc76476e754cc1d8ae1861d5a0afda20d")
 
     -- 测试版本
     -- add_versions("git:0.3.0", "bea18bb8a5bbe2936170a62e3bae1acc98e6e73c")
@@ -33,7 +35,12 @@ package("neko-proto-tools")
 
         -- >= 0.3.0 有效；dev 也有效
         enable_pugixml       = {description = "Enable pugixml support for xml serializer support.",  type = "boolean", default = false, deps = {"pugixml"},  minver = "0.3.0"},
-        stdcxx               = {description = "C++ standard version for building.", type = "number", default = 23, values = {20, 23, 26}, minver = "0.3.0"}
+        stdcxx               = {description = "C++ standard version for building.", type = "number", default = 23, values = {20, 23, 26}, minver = "0.3.0"},
+
+        -- >= 0.3.1 有效；dev 也有效
+        enable_libfyaml     = {description = "Enable libyaml support for yaml serializer support.", type = "boolean", default = false, deps = {"libfyaml"}, minver = "0.3.1"},
+        enable_tomlplusplus = {description = "Enable toml++ support for toml serializer support.",    type = "boolean", default = false, deps = {"toml++"},   minver = "0.3.1"},
+
     }
 
     local function is_devver(package)
