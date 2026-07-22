@@ -109,11 +109,12 @@ package("ilias-sql")
                             add_dep_once(package, added, info.deps[idx])
                         end
                     end
-                else
-                    for _, dep in ipairs(info.deps or {}) do
-                        add_dep_once(package, added, dep)
-                    end
                 end
+            else
+                for _, dep in ipairs(info.deps or {}) do
+                    add_dep_once(package, added, dep)
+                end
+            end
             end
         end
     end)
