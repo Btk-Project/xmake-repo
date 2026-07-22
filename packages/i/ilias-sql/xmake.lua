@@ -115,7 +115,6 @@ package("ilias-sql")
                     add_dep_once(package, added, dep)
                 end
             end
-            end
         end
     end)
 
