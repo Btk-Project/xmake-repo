@@ -34,7 +34,8 @@ package("ilias")
         io_uring   = {description = "Use io_uring as platform context",    type = "boolean", default = false, deps = {"io_uring"} },
         openssl    = {description = "Force to use openssl as tls backend", type = "boolean", default = false, deps = {"openssl3"} },
         coro_trace = {description = "Enable Coroutine async stacktrace",   type = "boolean", default = false, deps = {}           },
-        stdcxx     = {description = "C++ standard version for building",   type = "number",  default = 23,    deps = {}           }
+        stdcxx     = {description = "C++ standard version for building",   type = "number",  default = 23,    deps = {}           },
+        modules    = {description = "Enable c++ modules support",          type = "boolean", default = false,    deps = {}        },
     }
     add_configs("shared", {description = "Build shared library.", default = true, type = "boolean"})
 
