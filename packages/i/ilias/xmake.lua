@@ -13,7 +13,7 @@ package("ilias")
     add_versions("github:0.5.0", "1bc7b5de2507d41788b68c5846409cec831ba6164fcad2549d4871eebcd2047e")
 
     -- The dev versions
-    add_versions("git:dev", "main")
+    add_versions("git:dev", "dev")
 
     -- The system deps
     local tls_deps = {}
