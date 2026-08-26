@@ -88,7 +88,8 @@ package("ilias-sql")
 
     on_load(function (package)
         local added = {}
-
+        package:add("deps", "ilias")
+        package:add("deps", "neko-proto-tools")
         if package:config("dynamic_plugin") and not package:config("shared") then
             print("warning: package(ilias-sql): dynamic_plugin builds shared target in upstream xmake.lua, configs.shared=false may be ignored by upstream")
         end
