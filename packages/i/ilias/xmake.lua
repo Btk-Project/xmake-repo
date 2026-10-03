@@ -31,27 +31,32 @@ package("ilias")
         tls        = {description = "Enable Tls support",                  type = "boolean", default = true,  deps = tls_deps     },
         spdlog     = {description = "Use spdlog to log",                   type = "boolean", default = false, deps = {"spdlog"}   },
         fiber      = {description = "Enable stackful coroutine support",   type = "boolean", default = true,  deps = {}           },
-        io_uring   = {description = "Use io_uring as platform context",    type = "boolean", default = false, deps = {"io_uring"} },
+        io_uring   = {description = "Use io_uring as platform context",    type = "boolean", default = false, deps = {"liburing"} },
         openssl    = {description = "Force to use openssl as tls backend", type = "boolean", default = false, deps = {"openssl3"} },
         coro_trace = {description = "Enable Coroutine async stacktrace",   type = "boolean", default = false, deps = {}           },
         stdcxx     = {description = "C++ standard version for building",   type = "number",  default = 23,    deps = {}           },
-        modules    = {description = "Enable c++ modules support",          type = "boolean", default = false,    deps = {}        },
+        modules    = {description = "Enable c++ modules support",          type = "boolean", default = false, deps = {}           },
     }
-    add_configs("shared", {description = "Build shared library.", default = true, type = "boolean"})
 
+    -- Default is shared
+    add_configs("shared", {description = "Build shared library. default", default = true, type = "boolean"})
+    add_configs("static", {description = "Build static library instead of the default shared library.", default = false, type = "boolean"})
+
+    -- Register configs
     for k, info in pairs(configsOption) do
         add_configs(k, {description = info.description, default = info.default, type = info.type})
     end
 
     on_load(function (package)
+        -- If user select static, turn the shared off
+        if package:config("static") then
+            package:config_set("shared", false)
+        end
+        
+        -- Add all deps if need
         for name, info in pairs(configsOption) do
             local val = package:config(name)
-
-            if name == "stdcxx" then
-                if tonumber(val) < 23 then
-                    package:add("deps", "zeus_expected")
-                end
-            elseif val then
+            if val then
                 for _, dep in ipairs(info.deps) do
                     package:add("deps", dep)
                 end
